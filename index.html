@@ -2345,16 +2345,31 @@
         });
       });
 
-      // Form submission
+      // Form submission → Google Sheets via Apps Script
+      const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyhDx2J3hJl_fSdHosjWGXsxLGoXK-cmYhR4pkNxGC-YX_dqmVMT117kj-IeSbFWNqO3Q/exec';
       const form = document.querySelector('.form-card form');
       if (form) {
-        form.addEventListener('submit', e => {
+        form.addEventListener('submit', async e => {
           e.preventDefault();
           const btn = form.querySelector('.btn-primary');
           const originalText = btn.textContent;
           btn.textContent = 'Enviando...';
           btn.disabled = true;
-          setTimeout(() => {
+
+          const payload = {
+            nome: form.querySelector('#nome').value,
+            email: form.querySelector('#email').value,
+            whatsapp: form.querySelector('#whatsapp').value,
+            observacoes: form.querySelector('#observacoes').value
+          };
+
+          try {
+            await fetch(APPS_SCRIPT_URL, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: { 'Content-Type': 'text/plain' },
+              body: JSON.stringify(payload)
+            });
             btn.textContent = 'Enviado com sucesso!';
             btn.style.background = 'var(--color-success)';
             btn.style.borderColor = 'var(--color-success)';
@@ -2365,7 +2380,17 @@
               btn.style.borderColor = '';
               btn.disabled = false;
             }, 3000);
-          }, 1500);
+          } catch (err) {
+            btn.textContent = 'Erro ao enviar. Tente novamente.';
+            btn.style.background = '#c0392b';
+            btn.style.borderColor = '#c0392b';
+            setTimeout(() => {
+              btn.textContent = originalText;
+              btn.style.background = '';
+              btn.style.borderColor = '';
+              btn.disabled = false;
+            }, 3000);
+          }
         });
       }
 
