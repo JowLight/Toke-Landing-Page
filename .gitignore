@@ -1,0 +1,15 @@
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Zip files
+*.zip
+
+# PDFs internos
+Copy da página.pdf
+
+# Editor
+.vscode/
+*.swp
+*.swo
