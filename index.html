@@ -1181,7 +1181,8 @@
       margin-bottom: 6px;
     }
 
-    .form-card input {
+    .form-card input,
+    .form-card textarea {
       width: 100%;
       padding: 14px 16px;
       border: 1.5px solid var(--cream-dark);
@@ -1194,11 +1195,18 @@
       outline: none;
     }
 
-    .form-card input:focus {
+    .form-card textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-card input:focus,
+    .form-card textarea:focus {
       border-color: var(--gold);
     }
 
-    .form-card input::placeholder {
+    .form-card input::placeholder,
+    .form-card textarea::placeholder {
       color: var(--text-muted);
     }
 
@@ -2259,6 +2267,10 @@
             <div class="form-group">
               <label for="whatsapp">WhatsApp</label>
               <input type="tel" id="whatsapp" name="whatsapp" placeholder="(00) 00000-0000">
+            </div>
+            <div class="form-group">
+              <label for="observacoes">Observações</label>
+              <textarea id="observacoes" name="observacoes" rows="4" placeholder="Deixe sua mensagem ou dúvida..."></textarea>
             </div>
             <button type="submit" class="btn-primary" aria-label="Enviar cadastro">Quero Receber Novidades</button>
             <p class="form-disclaimer">Seus dados estão seguros. Não enviamos spam.</p>
