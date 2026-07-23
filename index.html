@@ -1903,7 +1903,7 @@
       </div>
 
       <!-- Card 1 — Esquerda inferior -->
-      <div class="bento-card bento-card-1" data-parallax-speed="2">
+      <div class="bento-card bento-card-1" data-parallax-speed="2.2">
         <div class="bento-card-icon">
           <svg viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
         </div>
@@ -1912,7 +1912,7 @@
       </div>
 
       <!-- Card 2 — Esquerda superior -->
-      <div class="bento-card bento-card-2" data-parallax-speed="3.5">
+      <div class="bento-card bento-card-2" data-parallax-speed="-2.6">
         <div class="bento-card-icon">
           <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
         </div>
@@ -1921,7 +1921,7 @@
       </div>
 
       <!-- Card 3 — Direita meio -->
-      <div class="bento-card bento-card-3" data-parallax-speed="2.6">
+      <div class="bento-card bento-card-3" data-parallax-speed="2.4">
         <div class="bento-card-icon">
           <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/><line x1="12" y1="2" x2="12" y2="4"/></svg>
         </div>
@@ -1930,7 +1930,7 @@
       </div>
 
       <!-- Card 4 — Centro inferior -->
-      <div class="bento-card bento-card-4" data-parallax-speed="1.4">
+      <div class="bento-card bento-card-4" data-parallax-speed="-2">
         <div class="bento-card-icon">
           <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
         </div>
@@ -2422,7 +2422,9 @@
           const progress = (vh / 2 - sectionCenter) / vh; // cresce ao rolar para baixo
           cards.forEach(card => {
             const speed = parseFloat(card.dataset.parallaxSpeed) || 1;
-            const offset = progress * speed * 26; // px, ajuste de intensidade
+            let offset = progress * speed * 60; // intensidade (maior = mais movimento)
+            const MAX = 95; // limite pra nao quebrar o layout nos extremos
+            offset = Math.max(-MAX, Math.min(MAX, offset));
             card.style.translate = '0px ' + offset.toFixed(1) + 'px';
           });
         }
