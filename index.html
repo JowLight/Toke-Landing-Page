@@ -2518,6 +2518,20 @@
         apply();
       })();
 
+      // Garante autoplay do video da nova section ao entrar na viewport
+      (function videoFeatureAutoplay() {
+        const vids = document.querySelectorAll('.video-feature video');
+        if (!vids.length || !('IntersectionObserver' in window)) return;
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            const v = entry.target;
+            if (entry.isIntersecting) { v.play().catch(() => {}); }
+            else { v.pause(); }
+          });
+        }, { threshold: 0.25 });
+        vids.forEach(v => io.observe(v));
+      })();
+
       // Smooth scroll for anchor links
       document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', e => {
