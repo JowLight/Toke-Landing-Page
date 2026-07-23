@@ -1822,6 +1822,50 @@
       .video-feature-card { width: 92%; aspect-ratio: 3 / 4; border-radius: 20px; }
       .video-feature-content h2 { margin-bottom: 12px; }
     }
+
+    /* ═══ Degradês de transição entre sections (fusão suave) ═══ */
+    .hero, .about, .products, .showcase, .how-to,
+    .banner, .why-toke, .video-feature, .featured-carousel { position: relative; }
+    .hero::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 180px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0), #ffffff);
+      pointer-events: none; z-index: 1;
+    }
+    .about::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 190px;
+      background: linear-gradient(to bottom, rgba(250,247,242,0), #FAF7F2);
+      pointer-events: none; z-index: 2;
+    }
+    .showcase::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 220px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0), #ffffff);
+      pointer-events: none; z-index: 5;
+    }
+    .banner::before {
+      content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 200px;
+      background: linear-gradient(to top, rgba(255,255,255,0), #ffffff);
+      pointer-events: none; z-index: 5;
+    }
+    .banner::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -1px; height: 200px;
+      background: linear-gradient(to bottom, rgba(227,196,158,0), #E3C49E);
+      pointer-events: none; z-index: 5;
+    }
+    .video-feature::before {
+      content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 170px;
+      background: linear-gradient(to top, rgba(227,196,158,0), #E3C49E);
+      pointer-events: none; z-index: 0;
+    }
+    .featured-carousel::before {
+      content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 200px;
+      background: linear-gradient(to top, rgba(255,255,255,0), #ffffff);
+      pointer-events: none; z-index: 0;
+    }
+    /* Em telas pequenas, degradês menores para nao invadir conteudo */
+    @media (max-width: 768px) {
+      .hero::after, .about::after, .showcase::after, .banner::before,
+      .banner::after, .video-feature::before, .featured-carousel::before { height: 110px; }
+    }
   </style>
 </head>
 <body>
