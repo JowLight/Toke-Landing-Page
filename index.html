@@ -2579,6 +2579,9 @@
 
       // Form submission → Google Sheets via Apps Script (GET + iframe to bypass CORS)
       const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyhDx2J3hJI_fSdHosjWGXsxLGoXK-cmYhR4pkNxGC-YX_dqmVMT117kj-leSbFWNqO3Q/exec';
+      // Supabase — grava o lead na tabela public.leads (alem do Google Sheets)
+      const SUPABASE_URL = 'https://bownavuecvcwaxpvprat.supabase.co';
+      const SUPABASE_KEY = 'sb_publishable_epaIDSKNhcojylG1RcU8VA_cfgbsHRE';
       const form = document.querySelector('.form-card form');
       if (form) {
         form.addEventListener('submit', e => {
@@ -2601,6 +2604,18 @@
           iframe.style.display = 'none';
           iframe.src = APPS_SCRIPT_URL + '?' + params;
           document.body.appendChild(iframe);
+
+          // Grava tambem direto na tabela do Supabase
+          fetch(SUPABASE_URL + '/rest/v1/leads', {
+            method: 'POST',
+            headers: {
+              'apikey': SUPABASE_KEY,
+              'Authorization': 'Bearer ' + SUPABASE_KEY,
+              'Content-Type': 'application/json',
+              'Prefer': 'return=minimal'
+            },
+            body: JSON.stringify(payload)
+          }).catch(err => console.error('Supabase erro:', err));
 
           // Show success after delay
           setTimeout(() => {
